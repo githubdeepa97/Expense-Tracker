@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Item Group";
+}
+<div class="">
+   <div class="px-2 px-md-5 text-end">
+    <p class="">
+      <a class="btn btn-outline-primary" asp-action="Index">View Items Group</a>
+    </p>
+  </div>
+<form action="Create" method="post">
+  <div class="mb-3">
+    <label for="Name">Item Group Name</label>
+    <input for="Name" name="Name" type="text" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>

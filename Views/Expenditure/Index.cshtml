@@ -1,0 +1,43 @@
+@model List<ExpenseTracker.Models.Expenditure>;
+@{
+  ViewData["Title"] = "Expenditure";
+  int serialNumber = 1;
+}
+<div class="Container text-center">
+  <h1 class="text-uppercase">@ViewData["Title"]</h1>
+  <div class="px-2 px-md-5 text-end">
+    <p class="">
+      <a class="btn btn-outline-primary" asp-action="Create">Create</a>
+    </p>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">User name</th>
+         <th scope="col">Item Group</th>
+         <th scope="col">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in Model)
+      {
+        <tr>
+          <td>@serialNumber</td>
+          <td>@item.User.Name</td>
+          <td>@item.Item.Name</td>
+          <td>@item.Amount</td>
+
+        </tr>
+        serialNumber++;
+      }
+    </tbody>
+     <tfoot>
+   <tr>
+          <td></td>
+          <td>Total Number = @(serialNumber-1)</td>
+        </tr>
+  </tfoot>
+  </table>
+
+</div>
