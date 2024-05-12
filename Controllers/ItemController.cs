@@ -1,6 +1,7 @@
 using ExpenseTracker.Areas.Identity.Data;
 using ExpenseTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Controllers;
@@ -20,8 +21,8 @@ public class ItemController : Controller
     [HttpGet]
       public async Task<IActionResult> Create()
     {
-        var itemGroup=await _context.ItemGroups.ToListAsync();
-        return View(itemGroup);
+        ViewBag.itemGroup=new SelectList(await _context.ItemGroups.ToListAsync(),"Id","Name");
+        return View();
     }
     [HttpPost]
     public async Task<IActionResult> Create(Item item)

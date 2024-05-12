@@ -16,11 +16,12 @@ html {
   position: relative;
   min-height: 100%;
 }
-nav
+header
 {
   background-color: black;
 }
 
 body {
   margin-bottom: 60px;
+  background-image: linear-gradient(to bottom right, rgb(139, 179, 212),white);
 }

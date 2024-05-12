@@ -1,13 +1,16 @@
-@model IEnumerable<ExpenseTracker.Models.ItemGroup>;
+@model ExpenseTracker.Models.Item;
 @{
-  ViewData["Title"] = "Item";
+  ViewData["Title"] = "Create";
 }
-<div class="">
-  <div class="px-2 px-md-5 text-end">
+<div class="container col-4  col-md-offset-8 text-center ">
+  <h1 class="text-uppercase">@ViewData["Title"]</h1>
+  <hr>
+   <div class="px-2 px-md-3 text-end"> 
     <p class="">
       <a class="btn btn-outline-primary" asp-action="Index">View Items</a>
     </p>
-  </div>
+   </div>
+
   <form method="post" action="Create">
     <div class="mb-3">
       <label for="Name">Item Name</label>
@@ -23,14 +26,9 @@
     </div>
     <div class="mb-3">
       <label for="ItemGroup">Item Group</label>
-      <select class="form-select" aria-label="Default select example" name="ItemGroupId">
-        <option selected>Open this select menu</option>
-        @foreach(var item in Model)
-        {
-          <option value="@item.Id">@item.Name</option>
-        }
-      </select>
+      <select class="form-select" asp-for="ItemGroupId" asp-items="ViewBag.itemGroup"></select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  
 </div>

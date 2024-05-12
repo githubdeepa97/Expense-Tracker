@@ -10,8 +10,5 @@ public class UserController : Controller
     {
         return View();
     }
-    public IActionResult Register()
-    {
-        return View();
-    }
+   
 }

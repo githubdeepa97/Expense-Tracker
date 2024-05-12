@@ -1,74 +1,38 @@
-@model ExpenseTracker.Models.Expense;
+@model ExpenseTracker.Models.Expenditure;
 @{
-  ViewData["Title"] = "Expenditure";
-  int itemSerialno = 1;
-  int sum = 0;
+  ViewData["Title"] = "Create";
 }
 
-<div class="">
-  <div class="px-2 px-md-5 text-end">
-    <p class="">
+<div class="container col-4  col-md-offset-8 text-center ">
+  <h1 class="text-uppercase">@ViewData["Title"]</h1>
+  <hr>
       <a class="btn btn-outline-primary" asp-action="Index">View Expenditure</a>
     </p>
   </div>
   <form action="Create" method="post">
     <div class="mb-3">
       <label for="User">User</label>
-      <select class="form-select" aria-label="Default select example" name="UserId">
-        <option selected>Open this select menu</option>
-        <option value="11">Test</option>
-        @* @foreach (var item in Model.users)
-        {
-          <option value="@item.Id">@item.Name</option>
-        } *@
+      <select class="form-select" asp-for="UserId" asp-items="ViewBag.users">
       </select>
     </div>
     <div class="mb-3">
-      <label for="Item">Item Name</label><br>
-      <select class="form-select" name="ItemId">
-        <option value="" selected>Open this select</option>
-      @foreach (var item in Model.items)
-      {
-        <option value="@item.Id">@item.Name</option>
-        @* @itemSerialno
-        <input class="form-check-input" type="checkbox" value="@item.Id" id="@item.Id" name="ItemId"
-          onchange="getamount(@item.Id,@item.Price)">
-        <label class="form-check-label" for="flexCheckDefault">
-          @item.Name,
-        </label>
-        itemSerialno++; *@
-      }
+      <label asp-asp-for="ItemId">Item Name</label><br>
+      <select class="form-select" id="itemId" asp-for="ItemId" asp-items="ViewBag.items">
       </select>
     </div>
     <div class="mb-3">
       <label for="Amount">Amount</label>
-      @foreach (var total in Model.items)
-      {
-        sum += total.Price;
-      }
-      <input for="Amount" type="number" value="@sum" name="Amount" class="form-control" readonly>
+      <input for="Amount" id="amount" type="number" value="" name="Amount" class="form-control" readonly>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
 @* scripts *@
 <script>
-  var arr = [];
-  function getamount(id, price) {
-    let item = {};
-    if (arr.length === 0) {
-      item = {
-        id: id,
-        price: price
-      }
-      arr.push(item);
-    } else {
-      for(i=0;i<=arr.length;i++)
-      {
-        if(arr[i].id==id){
-          console.log(arr[i])
-        }
-      }
-  }
-  }
+    document.getElementById("itemId").addEventListener("change", function () {
+        var itemId = this.value;
+        var items = @Html.Raw(Json.Serialize(ViewBag.amount));
+        var selectedPrice = items.find(item => item.id == itemId).price;
+        document.getElementById("amount").value = selectedPrice;
+    });
 </script>

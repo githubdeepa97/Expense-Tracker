@@ -1,10 +1,10 @@
 @model IEnumerable<ExpenseTracker.Models.ItemGroup>;
 @{
-  ViewData["Title"] = "Item Group";
+  ViewData["Title"] = "Item Group List";
   int serialNumber = 1;
 }
-<div class="Container text-center">
-  <h1 class="text-uppercase">@ViewData["Title"]</h1>
+<div class="Container  pt-2 px-4 py-2 text-center justify-content-center">
+ <h1 class="text-uppercase">@ViewData["Title"]</h1>
   <div class="px-2 px-md-5 text-end">
     <p class="">
       <a class="btn btn-outline-primary" asp-action="Create">Create</a>
@@ -29,8 +29,8 @@
     </tbody>
      <tfoot>
    <tr>
-          <td></td>
-          <td>Total Number = @(serialNumber-1)</td>
+          <td>Total Number of Item= @(serialNumber-1)</td>
+            <td></td>
         </tr>
   </tfoot>
   </table>
