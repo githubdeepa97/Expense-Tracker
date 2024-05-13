@@ -26,7 +26,8 @@
     </div>
     <div class="mb-3">
       <label for="ItemGroup">Item Group</label>
-      <select class="form-select" asp-for="ItemGroupId" asp-items="ViewBag.itemGroup"></select>
+      <select class="form-select" asp-for="ItemGroupId" asp-items="ViewBag.itemGroup">
+       <option selected default>Please Select</option></select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

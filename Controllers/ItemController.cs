@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Controllers;
-[Authorize]
+[Authorize(Roles = "admin")]
 public class ItemController : Controller
 {
     private readonly ExpenseTrackerIdentityDbContext _context;
