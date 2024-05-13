@@ -1,11 +1,12 @@
 using ExpenseTracker.Areas.Identity.Data;
 using ExpenseTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Controllers;
-
+[Authorize]
 public class ItemController : Controller
 {
     private readonly ExpenseTrackerIdentityDbContext _context;
@@ -29,7 +30,20 @@ public class ItemController : Controller
     {
         await _context.Items.AddAsync(item);
         await _context.SaveChangesAsync();
-        return View();
+        return RedirectToAction("Index");
     }
+     [HttpGet]
+    [Authorize(Roles ="admin")]
+      public async Task<IActionResult> Delete(int id)
+    {
+      var deleteData=await _context.Items.FindAsync(id);         
+      if(deleteData!=null)
+      {
+        _context.Items.Remove(deleteData);
+        _context.SaveChanges();
+      }
+      return RedirectToAction("Index");
+    }
+  
   
 }

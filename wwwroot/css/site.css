@@ -25,3 +25,10 @@ body {
   margin-bottom: 60px;
   background-image: linear-gradient(to bottom right, rgb(139, 179, 212),white);
 }
+.nostyle{
+  text-decoration: none;
+  color: #fff !important;
+}
+.nostyle:visited{
+  text-decoration: none;
+}

@@ -15,6 +15,10 @@
       <tr>
         <th scope="col">S.No</th>
         <th scope="col">Item Group</th>
+          @if(User.IsInRole("admin"))
+          {
+         <th>Action</th>
+         }
       </tr>
     </thead>
     <tbody>
@@ -23,6 +27,17 @@
         <tr>
           <td>@serialNumber</td>
           <td>@item.Name</td>
+           @if(User.IsInRole("admin"))
+          {
+            <td>
+            <button type="button" class="btn btn-warning">
+              <a asp-action="Edit" asp-route-id="@item.Id" class="nostyle">Edit</a>
+            </button>
+            <button type="button" class="btn btn-danger">
+              <a asp-action="Delete" asp-route-id="@item.Id" class="nostyle">Delete</a>
+            </button>
+          </td>
+          }
         </tr>
         serialNumber++;
       }

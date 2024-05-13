@@ -1,5 +1,6 @@
 using ExpenseTracker.Areas.Identity.Data;
 using ExpenseTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,20 @@ public class ItemGroupController : Controller
         await _context.ItemGroups.AddAsync(ItemGroup);
         await _context.SaveChangesAsync();
 
-        return View();
+        return RedirectToAction("Index");
     }
+     [HttpGet]
+    [Authorize(Roles ="admin")]
+      public async Task<IActionResult> Delete(int id)
+    {
+      var deleteData=await _context.ItemGroups.FindAsync(id);         
+      if(deleteData!=null)
+      {
+        _context.ItemGroups.Remove(deleteData);
+        _context.SaveChanges();
+      }
+      return RedirectToAction("Index");
+    }
+  
   
 }

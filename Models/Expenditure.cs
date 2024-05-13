@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace ExpenseTracker.Models;
 public class Expenditure
@@ -7,8 +8,8 @@ public class Expenditure
     [Key]
     public int Id { get; set;}
     [ForeignKey("Id")]
-    public int UserId { get; set;}
-    public User User{ get; set;}
+    public string UserId { get; set;}
+    public IdentityUser User{ get; set;}
     [ForeignKey("Id")]
     public int ItemId { get; set; }
     public Item Item{ get; set; }   

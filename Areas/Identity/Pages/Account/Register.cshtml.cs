@@ -75,8 +75,6 @@ namespace ExpenseTracker.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Name")]
             public string Name { get; set; }
-            [Required]
-            public string Role { get; set; } = "user";
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -107,8 +105,12 @@ namespace ExpenseTracker.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null)  
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/");
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -124,8 +126,8 @@ namespace ExpenseTracker.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Name=Input.Name;
-                user.Role=Input.Role;
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                 await _userManager.AddToRoleAsync(user,"user");
 
                 if (result.Succeeded)
                 {

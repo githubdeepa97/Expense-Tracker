@@ -6,9 +6,12 @@ var connectionString = builder.Configuration.GetConnectionString("ExpenseTracker
 
 builder.Services.AddDbContext<ExpenseTrackerIdentityDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ExpenseTrackerIdentityDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<ExpenseTrackerIdentityDbContext>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -31,4 +34,20 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+// using (var scope = app.Services.CreateScope())
+// {
+//     var userManager=scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+//     string email = "admin@gmail.com";
+//     string password= "Test@123";
+
+//     if(await userManager.FindByEmailAsync(email)==null)
+//     {
+//         var user = new IdentityUser();
+//         user.UserName = email;
+//         user.Email = email;
+
+//         await userManager.CreateAsync(user,password);
+//         await userManager.AddToRoleAsync(user,"admin");
+//     }
+// }
 app.Run();

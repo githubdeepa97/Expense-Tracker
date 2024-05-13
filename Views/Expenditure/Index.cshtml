@@ -2,6 +2,7 @@
 @{
   ViewData["Title"] = "Expenditure ";
   int serialNumber = 1;
+  decimal sum=0;
 }
 <div class="Container  pt-2 px-4 py-2 text-center justify-content-center">
  <h1 class="text-uppercase">@ViewData["Title"]</h1>
@@ -17,6 +18,10 @@
         <th scope="col">User name</th>
          <th scope="col">Item</th>
          <th scope="col">Amount</th>
+          @if(User.IsInRole("admin"))
+          {
+         <th>Action</th>
+         }
       </tr>
     </thead>
     <tbody>
@@ -24,18 +29,31 @@
       {
         <tr>
           <td>@serialNumber</td>
-          <td>@item.UserId</td> 
+          <td>@item.User.UserName</td> 
           <td>@item.Item.Name</td>
           <td>@item.Amount</td>
-
+          @if(User.IsInRole("admin"))
+          {
+            <td>
+            <button type="button" class="btn btn-warning">
+              <a asp-action="Edit" asp-route-id="@item.Id" class="nostyle">Edit</a>
+            </button>
+            <button type="button" class="btn btn-danger">
+              <a asp-action="Delete" asp-route-id="@item.Id" class="nostyle">Delete</a>
+            </button>
+          </td>
+          }
         </tr>
+        sum+=item.Amount;
         serialNumber++;
       }
     </tbody>
      <tfoot>
    <tr>
-          <td></td>
           <td>Total Number = @(serialNumber-1)</td>
+            <td></td>
+           <td></td>
+          <td>Total Amount = @sum</td>
         </tr>
   </tfoot>
   </table>
